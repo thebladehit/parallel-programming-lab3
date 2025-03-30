@@ -47,12 +47,12 @@ package body Data is
       procedure input_e(val: Integer) is
       begin
          e := val;
-      end input_a;
+      end input_e;
 
       procedure signal_input is
       begin
          input := input + 1;
-      end input_a;
+      end signal_input;
 
       procedure signal_calc_a is
       begin
@@ -100,14 +100,14 @@ package body Data is
 
    procedure calculateExpressionPart(aThread: Integer; eThread: Integer; threadNum: Integer) is
       MMMC: Matrix;
-      eX: Vector;
+      XMMMC: Vector;
       eXMMMC: Vector;
       BMV: Vector;
       aBMV: Vector;
    begin
       MMMC := multiplyMatrices(MM, MC, threadNum);
-      eX := multiplyVectorOnScalar(X, eThread, threadNum);
-      eXMMMC := multiplyVectorOnMatrix(eX, MMMC, threadNum);
+      XMMMC := multiplyVectorOnMatrix(X, MMMC, threadNum);
+      eXMMMC := multiplyVectorOnScalar(XMMMC, eThread, threadNum);
       BMV := multiplyVectorOnMatrix(B, MV, threadNum);
       aBMV := multiplyVectorOnScalar(BMV, aThread, threadNum);
       sumVectors(aBMV, eXMMMC, R, threadNum);
@@ -157,7 +157,7 @@ package body Data is
       for i in startPos..endPos loop
          resV(i) := 0;
          for j in 1..N loop
-            resV(i) := resV(i) + V(j) * M(j, i);
+            resV(i) := resV(i) + (V(j) * M(j, i));
          end loop;
       end loop;
       return resV;
@@ -168,6 +168,7 @@ package body Data is
       endPos: Integer := threadNum * H + H;
       localMax: Integer := V(startPos);
    begin
+      --  Put_Line ("thread = " & Integer'Image(threadNum + 1) & Integer'Image(startPos) & Integer'Image(endPos));
       for i in (startPos + 1)..endPos loop
          if V(i) > localMax then
             localMax := V(i);
