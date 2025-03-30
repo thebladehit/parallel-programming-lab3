@@ -13,6 +13,58 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Data;
 
 package body Data is
+   protected body Management is
+      entry wait_input when input = 3 is
+      begin
+         null;
+      end wait_input;
+
+      entry wait_calc_a when calc_a = 4 is
+      begin
+         null;
+      end wait_calc_a;
+
+      entry wait_calc_end when calc_end = 3 is
+      begin
+         null;
+      end wait_calc_end;
+
+      function copy_a return Integer is
+      begin
+         return a;
+      end copy_a;
+
+      function copy_e return Integer is
+      begin
+         return e;
+      end copy_e;
+
+      procedure input_a(val: Integer) is
+      begin
+         a := val;
+      end input_a;
+
+      procedure input_e(val: Integer) is
+      begin
+         e := val;
+      end input_a;
+
+      procedure signal_input is
+      begin
+         input := input + 1;
+      end input_a;
+
+      procedure signal_calc_a is
+      begin
+         calc_a := calc_a + 1;
+      end signal_calc_a;
+
+      procedure signal_calc_end is
+      begin
+         calc_end := calc_end + 1;
+      end signal_calc_end;
+   end Management;
+   
    procedure printNewLineInConsole is
    begin
       New_Line;

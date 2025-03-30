@@ -8,8 +8,6 @@
 -- ІМ-22
 -- 30.03.2025
 
-with Ada.Synchronous_Task_Control;
-use Ada.Synchronous_Task_Control;
 with Ada.Task_Attributes;
 
 package Data is
@@ -23,7 +21,24 @@ package Data is
    a, e: Integer;
    R, B, X, Z: Vector;
    MV, MC, MM: Matrix;
-   
+
+   protected Management is 
+      entry wait_input;
+      entry wait_calc_a;
+      entry wait_calc_end;
+      function copy_a return Integer;
+      function copy_e return Integer;
+      procedure input_a(val: Integer);
+      procedure input_e(val: Integer);
+      procedure signal_input;
+      procedure signal_calc_a;
+      procedure signal_calc_end;
+   private
+      a: Integer; -- shared resource
+      e: Integer; -- shared resource
+      input, calc_a, calc_end: Integer := 0;
+   end Management;
+
    procedure printNewLineInConsole;
    procedure printTextInConsole(text: String);
    procedure printVectorInConsole(V: Vector);
