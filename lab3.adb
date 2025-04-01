@@ -14,10 +14,21 @@ with Ada.Exceptions; use Ada.Exceptions;
 with Ada.Real_Time;
 use Ada.Real_Time;
 procedure Lab3 is 
-   task T1;
-   task T2;
-   task T3;
-   task T4;
+   task T1 is
+      pragma Storage_Size(20_000_000);
+   end T1;
+   
+   task T2 is
+      pragma Storage_Size(20_000_000);
+   end T2;
+
+   task T3 is
+      pragma Storage_Size(20_000_000);
+   end T3;
+
+   task T4 is
+      pragma Storage_Size(20_000_000);
+   end T4;
 
    task body T1 is
       a1, e1: Integer;
