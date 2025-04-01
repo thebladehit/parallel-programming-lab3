@@ -11,6 +11,8 @@
 with Data; use Data;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
+with Ada.Real_Time;
+use Ada.Real_Time;
 procedure Lab3 is 
    task T1;
    task T2;
@@ -95,11 +97,19 @@ procedure Lab3 is
       Management.wait_calc_end;
 
       -- Print output
-      printNewLineInConsole;
-      printVectorInConsole(R);
+      --  printNewLineInConsole;
+      --  printVectorInConsole(R);
 
       printNewLineInConsole;
       printTextInConsole("T2 finished");
+
+      -- Measure time execution
+      End_Time := Clock;
+      Elapsed_Time := End_Time - Start_Time;
+
+      printNewLineInConsole;
+      printNewLineInConsole;
+      Put_Line ("Execution time: " & Duration'Image(To_Duration(Elapsed_Time)) & " seconds");
    end T2;
 
    task body T3 is
@@ -175,5 +185,6 @@ procedure Lab3 is
       printTextInConsole("T4 finished");
    end T4;
 begin
+   Start_Time := Clock;
    printTextInConsole("Main thread started");
 end Lab3;

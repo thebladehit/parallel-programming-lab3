@@ -9,9 +9,11 @@
 -- 30.03.2025
 
 with Ada.Task_Attributes;
+with Ada.Real_Time;
+use Ada.Real_Time;
 
 package Data is
-   N: Integer := 4;
+   N: Integer := 1000;
    P: Integer := 4;
    H: Integer := N / P;
 
@@ -38,6 +40,9 @@ package Data is
       e: Integer; -- shared resource
       input, calc_a, calc_end: Integer := 0;
    end Management;
+
+   Start_Time, End_Time: Time;
+   Elapsed_Time: Time_Span;
 
    procedure printNewLineInConsole;
    procedure printTextInConsole(text: String);
